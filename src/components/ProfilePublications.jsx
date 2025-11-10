@@ -1,10 +1,12 @@
+import { useParams } from "react-router-dom";
 import { usePagination } from "../hooks/usePagination";
 import GetPublication from "./GetPublication";
 
 
-export default function PublicationFollowing() {
+export default function MyPublications() {
+  const { name } = useParams();
   const { items, page, totalPages, isLoading, isError, error, nextPage, prevPage } =
-    usePagination("/publications/following", 5); // endpoint y tamaño de página
+    usePagination(`/publications/public/${name}`, 5); // endpoint y tamaño de página
 
 
   if (isLoading) return <p>Cargando publicaciones...</p>;
@@ -40,3 +42,5 @@ export default function PublicationFollowing() {
     </div>
   );
 }
+
+

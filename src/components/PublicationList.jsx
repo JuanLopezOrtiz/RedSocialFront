@@ -22,7 +22,7 @@ export default function PublicationList() {
       {items.map((pub) => (
         <GetPublication
           key={pub.id}
-          authorName={pub.publicated.username}
+          authorName={pub.username}
           text={pub.text}
           createDate={pub.createDate}
         />
