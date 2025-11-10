@@ -39,7 +39,7 @@ export async function apiFetch(url, options = {}) {
 
 
   // Si la sesión caducó y había token, limpiamos y redirigimos al login
-  if ((res.status === 401 ) && token) {
+  if ((res.status === 401 || res.status === 403) && token) {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     window.location.replace('/');
