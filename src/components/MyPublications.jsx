@@ -1,12 +1,12 @@
+import { useAuth } from "../context/useAuth";
 import { usePagination } from "../hooks/usePagination";
 import GetPublication from "./GetPublication";
-import { useAuth } from "../context/useAuth";
 
 
 export default function MyPublications() {
-    const { user } = useAuth();
+  const { user } = useAuth();
   const { items, page, totalPages, isLoading, isError, error, nextPage, prevPage } =
-    usePagination(`/publications/public/"${user.username}`, 5); // endpoint y tamaño de página
+    usePagination(`/publications/public/${user.username}`, 5); // endpoint y tamaño de página
 
 
   if (isLoading) return <p>Cargando publicaciones...</p>;
@@ -24,7 +24,8 @@ export default function MyPublications() {
       {items.map((pub) => (
         <GetPublication
           key={pub.id}
-          authorName={pub.publicated.username}
+          id={pub.id}
+          authorName={pub.username}
           text={pub.text}
           createDate={pub.createDate}
         />
