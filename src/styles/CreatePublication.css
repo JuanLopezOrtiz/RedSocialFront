@@ -1,0 +1,62 @@
+.create-pub-container {
+  max-width: 100%; /* Ajustado para que quepa en el layout */
+  margin: 0; /* Se controla desde el layout padre */
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+.create-pub-title {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.create-pub-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.create-pub-textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  resize: vertical; /* Permitir resize vertical */
+  min-height: 80px;
+  font-family: inherit;
+  font-size: 1em;
+  box-sizing: border-box; /* Importante */
+}
+
+.create-pub-button {
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  align-self: flex-end; /* Botón a la derecha */
+}
+
+.create-pub-button:hover {
+  background-color: #1a75c4;
+}
+
+.create-pub-button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+.create-pub-error {
+  color: #dc3545;
+  margin-top: 10px;
+  margin-bottom: 0;
+  font-weight: 500;
+}

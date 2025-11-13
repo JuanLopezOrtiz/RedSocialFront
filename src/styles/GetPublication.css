@@ -1,0 +1,58 @@
+.publication-container {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #fafafa;
+  text-align: left;
+}
+
+.publication-header {
+  margin: 0 0 10px 0;
+  font-size: 0.9em;
+  color: #555;
+}
+
+.publication-author {
+  cursor: pointer;
+  color: #007bff;
+  font-weight: 600;
+}
+
+.publication-author:hover {
+  text-decoration: underline;
+}
+
+.publication-date {
+  color: #777;
+}
+
+.publication-text {
+  margin: 0 0 15px 0;
+  font-size: 1.1em;
+  color: #333;
+  /* Para preservar saltos de línea y espacios */
+  white-space: pre-wrap; 
+  word-wrap: break-word; /* Para que no se desborde */
+}
+
+.publication-delete-btn {
+  color: white;
+  background-color: #dc3545;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 0.8em;
+  font-weight: 500;
+  transition: background-color 0.25s;
+}
+
+.publication-delete-btn:hover {
+  background-color: #c82333;
+}
+
+.publication-delete-btn:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}

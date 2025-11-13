@@ -1,17 +1,27 @@
 import { useState } from "react";
 import { useAuth } from "../context/useAuth";
 import { apiFetch } from "../api/client";
-import { useQueryClient } from "@tanstack/react-query"; // ✅ IMPORTANTE
+import { useQueryClient } from "@tanstack/react-query";
+import "../styles/CreatePublication.css";
 
+/**
+ * Componente para crear una nueva publicación.
+ *
+ * Renderiza un formulario para crear una publicación.
+ * La publicación se crea con un POST a /publications.
+ * La lista de publicaciones se recarga automáticamente después de crear una.
+ *
+ * @returns {JSX.Element} Formulario para crear una publicación.
+ */
 
-export default function CreatePublication() {  // ya NO necesitas onNewPublication
+export default function CreatePublication() {
   const { user } = useAuth();
   const [text, setText] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
 
 
-  const queryClient = useQueryClient(); // ✅
+  const queryClient = useQueryClient();
 
 
   if (!user) {
@@ -19,6 +29,15 @@ export default function CreatePublication() {  // ya NO necesitas onNewPublicati
   }
 
 
+/**
+ * Función para manejar el envío del formulario de crear una publicación.
+ *
+ * Previene el envío del formulario y si el texto no está vacío,
+ * crea una publicación con un POST a /publications.
+ * Si hay un error, se muestra un mensaje de error.
+ * Si no hay error, se borra el texto del formulario y se invalida
+ * la cache de la lista de publicaciones.
+ */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -43,7 +62,7 @@ export default function CreatePublication() {  // ya NO necesitas onNewPublicati
       setText("");
 
 
-      // ✅ recarga automática de la lista
+      // Recarga automática de la lista
       queryClient.invalidateQueries(["/publications/"]);
 
 
@@ -56,47 +75,26 @@ export default function CreatePublication() {  // ya NO necesitas onNewPublicati
 
 
   return (
-    <div style={{
-      maxWidth: "600px",
-      margin: "20px auto",
-      padding: "15px",
-      backgroundColor: "#f9f9f9",
-      borderRadius: "10px",
-      boxShadow: "0 0 8px rgba(0,0,0,0.1)",
-    }}>
-      <h3>Crea una nueva publicación</h3>
-      <form onSubmit={handleSubmit}>
+    <div className="create-pub-container">
+      <h3 className="create-pub-title">Crea una nueva publicación</h3>
+      <form className="create-pub-form" onSubmit={handleSubmit}>
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="¿Qué estás pensando?"
           rows={4}
-          style={{
-            width: "100%",
-            padding: "10px",
-            borderRadius: "6px",
-            border: "1px solid #ccc",
-            resize: "none",
-          }}
+          className="create-pub-textarea"
           disabled={isSubmitting}
         />
         <button
           type="submit"
           disabled={isSubmitting}
-          style={{
-            marginTop: "10px",
-            padding: "10px 15px",
-            backgroundColor: "#2196f3",
-            color: "white",
-            border: "none",
-            borderRadius: "6px",
-            cursor: "pointer",
-          }}
+          className="create-pub-button"
         >
           {isSubmitting ? "Publicando..." : "Publicar"}
         </button>
       </form>
-      {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+      {error && <p className="create-pub-error">{error}</p>}
     </div>
   );
 }

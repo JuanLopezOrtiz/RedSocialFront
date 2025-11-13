@@ -4,12 +4,19 @@ import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../api/auth";
 import { useAuth } from "../context/useAuth";
 import { Link } from "react-router-dom";
+import "../styles/AuthForm.css";
 
 
 
 
 
-
+/**
+ * Formulario para iniciar sesión.
+ * Renderiza un formulario para iniciar sesión.
+ * La autenticación se hace con un POST a /auth/login.
+ * La lista de publicaciones se recarga automáticamente después de iniciar sesión.
+ * @returns {JSX.Element} Formulario para iniciar sesión.
+ */
 export default function LoginForm() {
   const { login } = useAuth();
   const [form, setForm] = useState({ username: "", password: "" });
@@ -23,6 +30,11 @@ export default function LoginForm() {
 
   const mutation = useMutation({
     mutationFn: loginUser,
+/**
+ * Llamado cuando la mutación tienexito.
+ * Recibe los datos de la respuesta de la API.
+ * @param {Object} data - Datos de la respuesta de la API.
+ */
     onSuccess: (data) => {
       // Suponemos que la API devuelve { token, user }
       login(data.access_token, { username: data.username });
@@ -32,6 +44,11 @@ export default function LoginForm() {
 
 
 
+/**
+ * Función para manejar el envío del formulario de inicio de sesión.
+ * Previene el envío del formulario y llama a la mutación para iniciar sesión.
+ * @param {Event} e - Evento de envío del formulario.
+ */
   const handleSubmit = (e) => {
     e.preventDefault();
     mutation.mutate(form);
@@ -41,9 +58,9 @@ export default function LoginForm() {
 
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <h3>Iniciar sesión</h3>
+    <div className="auth-container">
+      <form className="auth-form" onSubmit={handleSubmit}>
+        <h3 className="auth-title">Iniciar sesión</h3>
 
 
 
@@ -53,6 +70,7 @@ export default function LoginForm() {
           placeholder="Username"
           value={form.username}
           onChange={(e) => setForm({ ...form, username: e.target.value })}
+          className="auth-input"
           required
         />
         <input
@@ -60,9 +78,10 @@ export default function LoginForm() {
           placeholder="Contraseña"
           value={form.password}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
+          className="auth-input"
           required
         />
-        <button type="submit" disabled={mutation.isPending}>
+        <button type="submit" className="auth-button" disabled={mutation.isPending}>
           Entrar
         </button>
 
@@ -70,13 +89,13 @@ export default function LoginForm() {
 
 
         {mutation.isError && (
-          <p style={{ color: "red" }}>{mutation.error.message}</p>
+          <p className="auth-error">{mutation.error.message}</p>
         )}
       </form>
 
 
-      <p>¿No tienes cuenta? <Link to="/register"> Registrate </Link></p>
-    </>
+      <p className="auth-switch">¿No tienes cuenta? <Link to="/register"> Registrate </Link></p>
+    </div>
   );
 }
 
