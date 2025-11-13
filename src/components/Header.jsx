@@ -3,6 +3,12 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/useAuth";
 
 
+/**
+ * Componente que renderiza la barra de navegación superior.
+ * Muestra el nombre de la red, enlaces de navegación y el usuario logueado
+ * con un botón para cerrar sesión.
+ * @returns {JSX.Element} Barra de navegación superior.
+ */
 export default function Header() {
   const { user, logout } = useAuth();
 

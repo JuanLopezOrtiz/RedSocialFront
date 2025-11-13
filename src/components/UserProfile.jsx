@@ -1,4 +1,3 @@
-// src/components/UserProfile.jsx
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { apiFetch } from "../api/client";
@@ -6,6 +5,16 @@ import { apiFetch } from "../api/client";
 
 
 
+/**
+ * Muestra el perfil de un usuario en particular.
+ * Utiliza useParams para obtener el nombre de la URL.
+ * Utiliza useState para guardar el perfil del usuario, la carga y el error.
+ * Utiliza useEffect para cargar el perfil del usuario con un GET a /users/public/{name}.
+ * Si hay un error, se muestra un mensaje de error.
+ * Si no hay perfil, se muestra un mensaje.
+ * Muestra el perfil en un div con estilos de CSS.
+ * @returns {JSX.Element} Perfil del usuario.
+ */
 export default function UserProfile() {
   const { name } = useParams(); // toma el nombre de la URL
   const [profile, setProfile] = useState(null);
@@ -16,6 +25,13 @@ export default function UserProfile() {
 
 
   useEffect(() => {
+  /**
+   * Carga el perfil del usuario con el nombre dado.
+   * Intenta obtener el perfil del usuario con un GET a /users/public/{name}.
+   * Si hay un error, lo guarda en el estado de error.
+   * Si no hay error, guarda el perfil en el estado de perfil.
+   * Finalmente, siempre cambia el estado de carga a false.
+   */
     async function loadProfile() {
       try {
         const data = await apiFetch(`/users/public/${name}`);

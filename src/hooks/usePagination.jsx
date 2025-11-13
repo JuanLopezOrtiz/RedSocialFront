@@ -29,15 +29,22 @@ export function usePagination(endpoint, pageSize = 5) {
   const totalPages = data?.totalPages || 1;
 
 
+/**
+ * Pasa a la siguiente página de publicaciones.
+ * No hace nada si ya se está en la última página.
+ */
   const nextPage = () => {
     if (page < totalPages - 1) setPage((p) => p + 1);
   };
 
 
+/**
+ * Pasa a la página anterior de publicaciones.
+ * No hace nada si ya se está en la primera página.
+ */
   const prevPage = () => {
     if (page > 0) setPage((p) => p - 1);
   };
-
 
   return { items, page, totalPages, isLoading, isError, error, nextPage, prevPage };
 }

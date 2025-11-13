@@ -4,6 +4,16 @@ import GetPublication from "./GetPublication";
 
 
 
+/**
+ * Componente que muestra una lista de publicaciones.
+ *
+ * Utiliza usePagination para obtener las publicaciones.
+ * Muestra un mensaje de carga mientras se cargan las publicaciones.
+ * Si hay un error, se muestra un mensaje de error.
+ * Si no hay publicaciones, se muestra un mensaje.
+ * Muestra las publicaciones en una lista.
+ * Permite cambiar de página.
+ */
 export default function PublicationList() {
   const { items, page, totalPages, isLoading, isError, error, nextPage, prevPage } =
     usePagination("/publications/", 5); // endpoint y tamaño de página

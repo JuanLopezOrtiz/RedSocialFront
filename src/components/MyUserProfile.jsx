@@ -4,6 +4,13 @@ import { apiFetch } from "../api/client";
 import { useAuth } from "../context/useAuth";
 
 
+/**
+ * Componente para mostrar el perfil del usuario autenticado.
+ * Renderiza un formulario para actualizar el nombre de usuario.
+ * La actualización se hace con un PATCH a /users/change.
+ * La lista de publicaciones se recarga automáticamente después de actualizar el nombre de usuario.
+ * @returns {JSX.Element} Formulario para actualizar el nombre de usuario.
+ */
 export default function MyUserProfile() {
   const { user } = useAuth();
   const [profile, setProfile] = useState(null);
@@ -11,17 +18,29 @@ export default function MyUserProfile() {
   const [error, setError] = useState(null);
 
 
-  // ✅ estado para mostrar/ocultar formulario
+  // Estado para mostrar/ocultar formulario
   const [showForm, setShowForm] = useState(false);
 
 
+  // Estado para el nuevo nombre de usuario
   const [newUsername, setNewUsername] = useState("");
+  // Estado para el mensaje de redireccionamiento
   const [isUpdating, setIsUpdating] = useState(false);
+  // Estado para el error de actualización
   const [updateError, setUpdateError] = useState(null);
+  // Estado para el mensaje de redireccionamiento
   const [redirectMessage, setRedirectMessage] = useState("");
 
 
   useEffect(() => {
+/**
+ * Carga el perfil del usuario autenticado.
+ * Si no hay un usuario autenticado, no hace nada.
+ * Intenta obtener el perfil del usuario con un GET a /users/public/{username}.
+ * Si hay un error, lo guarda en el estado de error.
+ * Si no hay error, guarda el perfil en el estado de perfil.
+ * Finalmente, siempre cambia el estado de carga a false.
+ */
     async function loadProfile() {
       if (!user?.username) {
         setLoading(false);
@@ -42,6 +61,15 @@ export default function MyUserProfile() {
   }, [user.username]);
 
 
+/**
+ * Actualiza el nombre de usuario del usuario autenticado.
+ * Llama a que el nuevo nombre de usuario no esté vacío y sea diferente al actual.
+ * Intenta actualizar el nombre de usuario con un PATCH a /users/change.
+ * Si hay un error, lo muestra en el estado de error.
+ * Si no hay error, cambia el estado de redireccionamiento a true y
+ * redirige al login después de 2 segundos.
+ * @param {Event} e - Evento de envío del formulario de cambio de nombre de usuario.
+ */
   const handleChangeUsername = async (e) => {
     e.preventDefault();
     if (!newUsername.trim()) {
@@ -53,8 +81,9 @@ export default function MyUserProfile() {
       return;
     }
 
-
+    // Actualizar el nombre de usuario
     setIsUpdating(true);
+    // Limpiar el mensaje de redireccionamiento
     setUpdateError(null);
 
 
@@ -107,7 +136,7 @@ export default function MyUserProfile() {
       <hr style={{ margin: "30px 0" }} />
 
 
-      {/* ✅ Botón para mostrar/ocultar formulario */}
+      {/*Botón para mostrar/ocultar formulario */}
       <button
         onClick={() => setShowForm(!showForm)}
         style={{

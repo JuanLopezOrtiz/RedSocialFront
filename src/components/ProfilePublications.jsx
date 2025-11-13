@@ -3,13 +3,24 @@ import { usePagination } from "../hooks/usePagination";
 import GetPublication from "./GetPublication";
 
 
+/**
+ * Muestra las publicaciones de un usuario en particular.
+ *
+ * Utiliza usePagination para obtener las publicaciones de un usuario.
+ * Muestra un mensaje de carga mientras se cargan las publicaciones.
+ * Si hay un error, se muestra un mensaje de error.
+ * Si no hay publicaciones, se muestra un mensaje.
+ * Muestra las publicaciones en una lista.
+ * Permite cambiar de página.
+ */
 export default function MyPublications() {
   const { name } = useParams();
   const { items, page, totalPages, isLoading, isError, error, nextPage, prevPage } =
     usePagination(`/publications/public/${name}`, 5); // endpoint y tamaño de página
 
-
+  // Muestra un mensaje de carga mientras se cargan las publicaciones
   if (isLoading) return <p>Cargando publicaciones...</p>;
+  // Muestra un mensaje de error si hay un error
   if (isError) return <p style={{ color: "red" }}>Error: {error.message}</p>;
 
 

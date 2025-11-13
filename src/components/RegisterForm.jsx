@@ -1,10 +1,17 @@
-// src/components/RegisterForm.jsx
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { registerUser } from "../api/auth";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
+/**
+ * Componente para registrar un nuevo usuario.
+ * Renderiza un formulario para registrar un nuevo usuario.
+ * El registro se hace con un POST a /auth/register.
+ * La lista de publicaciones se recarga automáticamente después de registrar un nuevo usuario.
+ * @returns {JSX.Element} Formulario para registrar un nuevo usuario.
+ */
 export default function RegisterForm() {
   const [form, setForm] = useState({
     username: "",
@@ -13,11 +20,23 @@ export default function RegisterForm() {
   });
 
 
+  const navigate = useNavigate();
+  // Mutación para registrar un nuevo usuario
   const mutation = useMutation({
     mutationFn: registerUser,
+
+
+    onSuccess: () => {
+      setTimeout(()=> navigate("/"), 1000);
+    }
   });
 
 
+/**
+ * Función para manejar el envío del formulario de registro.
+ * Previene el envío del formulario y llama a la mutación para registrar un nuevo usuario.
+ * @param {Event} e - Evento de envío del formulario de registro.
+ */
   const handleSubmit = (e) => {
     e.preventDefault();
     mutation.mutate(form);

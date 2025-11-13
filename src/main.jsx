@@ -7,7 +7,10 @@ import App from "./App";
 
 const queryClient = new QueryClient();
 
-
+/**
+ * Renderiza el componente principal de la app.
+ * @returns {JSX.Element} Componente principal de la app.
+ */
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
