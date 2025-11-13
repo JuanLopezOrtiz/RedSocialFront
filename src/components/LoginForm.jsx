@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../api/auth";
 import { useAuth } from "../context/useAuth";
 import { Link } from "react-router-dom";
-
+import "../styles/AuthForm.css";
 
 
 
@@ -58,9 +58,9 @@ export default function LoginForm() {
 
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <h3>Iniciar sesión</h3>
+    <div className="auth-container">
+      <form className="auth-form" onSubmit={handleSubmit}>
+        <h3 className="auth-title">Iniciar sesión</h3>
 
 
 
@@ -70,6 +70,7 @@ export default function LoginForm() {
           placeholder="Username"
           value={form.username}
           onChange={(e) => setForm({ ...form, username: e.target.value })}
+          className="auth-input"
           required
         />
         <input
@@ -77,9 +78,10 @@ export default function LoginForm() {
           placeholder="Contraseña"
           value={form.password}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
+          className="auth-input"
           required
         />
-        <button type="submit" disabled={mutation.isPending}>
+        <button type="submit" className="auth-button" disabled={mutation.isPending}>
           Entrar
         </button>
 
@@ -87,13 +89,13 @@ export default function LoginForm() {
 
 
         {mutation.isError && (
-          <p style={{ color: "red" }}>{mutation.error.message}</p>
+          <p className="auth-error">{mutation.error.message}</p>
         )}
       </form>
 
 
-      <p>¿No tienes cuenta? <Link to="/register"> Registrate </Link></p>
-    </>
+      <p className="auth-switch">¿No tienes cuenta? <Link to="/register"> Registrate </Link></p>
+    </div>
   );
 }
 

@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/useAuth";
 import { apiFetch } from "../api/client";
-
+import "../styles/GetPublication.css";
 
 /**
  * Componente que muestra una publicación y permite borrarla.
@@ -60,40 +60,26 @@ export default function GetPublication({ id, authorName, text, createDate }) {
 
 
   return (
-    <div
-      style={{
-        border: "1px solid #ccc",
-        borderRadius: "10px",
-        padding: "15px",
-        marginBottom: "10px",
-        backgroundColor: "#fafafa",
-      }}
-    >
-      <p>
+    <div className="publication-container">
+      <p className="publication-header">
         <strong
-          style={{ cursor: "pointer", color: "blue" }}
+          className="publication-author"
           onClick={() => navigate(`/profile/${authorName}`)}
         >
           {authorName}
-        </strong>{" "}
-        — {new Date(createDate).toLocaleString("es-ES", { timeZone: "Europe/Madrid" })}
-      </p>
+        </strong><span className="publication-date">
+          {" "}— {new Date(createDate).toLocaleString("es-ES", { timeZone: "Europe/Madrid" })}
+          </span>
+          </p>
 
 
-      <p>{text}</p>
+      <p className="publication-text">{text}</p>
 
 
       {/* Solo el autor puede borrar */}
       {user?.username === authorName && (
         <button
-          style={{
-            color: "white",
-            backgroundColor: "#dc3545",
-            border: "none",
-            borderRadius: "5px",
-            padding: "5px 10px",
-            cursor: "pointer",
-          }}
+          className="publication-delete-btn"
           onClick={handleDelete}
           disabled={deleteMutation.isPending}
         >

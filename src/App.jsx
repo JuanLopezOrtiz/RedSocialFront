@@ -15,6 +15,16 @@ import ProfilePage from "./pages/ProfilePage";
 
 
 
+/**
+ * Componente principal de la aplicación.
+ * Utiliza el contexto de autenticación para determinar si el usuario
+ * está logueado o no.
+ * Si el usuario NO está logueado, muestra la ruta "/" (login/registro)
+ * y redirige a la ruta "/" si intenta acceder a otras rutas.
+ * Si el usuario ESTÁ logueado, muestra las rutas privadas y redirige
+ * a la principal si intenta acceder a otras rutas.
+ * @returns {JSX.Element} Componente principal de la aplicación.
+ */
 export default function App() {
   const { isAuthenticated } = useAuth();
 

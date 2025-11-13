@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { registerUser } from "../api/auth";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import "../styles/AuthForm.css";
 
 /**
  * Componente para registrar un nuevo usuario.
@@ -44,10 +44,10 @@ export default function RegisterForm() {
 
 
   return (
-    <main style={{ maxWidth: 500, margin: "40px auto" }}>
-      <h2>Bienvenida a MiniRed</h2>
-      <form onSubmit={handleSubmit}>
-      <h3>Registro</h3>
+    <main className="auth-container">
+      <h2 className="auth-welcome">Bienvenida a MiniRed</h2>
+      <form className="auth-form" onSubmit={handleSubmit}>
+      <h3 className="auth-title">Registro</h3>
 
 
       <input
@@ -55,6 +55,7 @@ export default function RegisterForm() {
         placeholder="Usuario"
         value={form.username}
         onChange={(e) => setForm({ ...form, username: e.target.value })}
+        className="auth-input"
         required
       />
       <input
@@ -62,6 +63,7 @@ export default function RegisterForm() {
         placeholder="Email"
         value={form.email}
         onChange={(e) => setForm({ ...form, email: e.target.value })}
+        className="auth-input"
         required
       />
       <input
@@ -69,21 +71,22 @@ export default function RegisterForm() {
         placeholder="Contraseña"
         value={form.password}
         onChange={(e) => setForm({ ...form, password: e.target.value })}
+        className="auth-input"
         required
       />
-      <button type="submit" disabled={mutation.isPending}>
+      <button type="submit" className="auth-button" disabled={mutation.isPending}>
         Registrarse
       </button>
 
-      <p>¿Ya tienes cuenta? <Link to="/"> Logeate </Link></p>
+      <p className="auth-switch">¿Ya tienes cuenta? <Link to="/"> Logeate </Link></p>
 
 
 
       {mutation.isError && (
-        <p style={{ color: "red" }}>{mutation.error.message}</p>
+        <p className="auth-error">{mutation.error.message}</p>
       )}
       {mutation.isSuccess && (
-        <p style={{ color: "green" }}>Registro completado con éxito</p>
+        <p className="auth-success">Registro completado con éxito</p>
       )}
     </form>
     </main>

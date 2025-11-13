@@ -1,6 +1,7 @@
 import CreatePublication from "../components/CreatePublication";
 import Header from "../components/Header";
 import PublicationFollowing from "../components/PublicationFollowing";
+import "../styles/Page.css";
 
 
 /**
@@ -13,8 +14,8 @@ export default function HomePage() {
   return (
     <>
       <Header />
-      <main style={{ padding: 20 }}>
-        <h3>Publicaciones de tus seguidos</h3>
+      <main className="page-container">
+        <h3 className="page-title">Publicaciones de tus seguidos</h3>
         <CreatePublication />
         <PublicationFollowing />
       </main>

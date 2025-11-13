@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { apiFetch } from "../api/client";
 import { useAuth } from "../context/useAuth";
-
+import "../styles/UserProfile.css";
 
 /**
  * Componente para mostrar el perfil del usuario autenticado.
@@ -117,52 +117,29 @@ export default function MyUserProfile() {
 
 
   return (
-    <div
-      style={{
-        maxWidth: "600px",
-        margin: "40px auto",
-        padding: "20px",
-        backgroundColor: "#f9f9f9",
-        borderRadius: "10px",
-        boxShadow: "0 0 8px rgba(0,0,0,0.1)",
-        textAlign: "center",
-      }}
-    >
-      <h2 style={{ marginBottom: "10px" }}>{profile.username}</h2>
-      <p>{profile.email}</p>
-      <p>{profile.description || "Sin descripción disponible"}</p>
+    <div className="profile-container">
+      <h2 className="profile-username">{profile.username}</h2>
+      <p className="profile-email">{profile.email}</p>
+      <p className="profile-description">{profile.description || "Sin descripción disponible"}</p>
 
 
-      <hr style={{ margin: "30px 0" }} />
+      <hr className="profile-divider" />
 
 
       {/*Botón para mostrar/ocultar formulario */}
-      <button
-        onClick={() => setShowForm(!showForm)}
-        style={{
-          padding: "10px 15px",
-          cursor: "pointer",
-          backgroundColor: "#1976d2",
-          color: "white",
-          border: "none",
-          borderRadius: "6px",
-        }}
-      >
+      <button onClick={() => setShowForm(!showForm)}>
         {showForm ? "Cancelar" : "Cambiar nombre de usuario"}
       </button>
 
 
-      {/* ✅ El formulario solo aparece si showForm es true */}
+      {/*El formulario solo aparece si showForm es true */}
       {showForm && (
-        <form onSubmit={handleChangeUsername} style={{ marginTop: "20px" }}>
-          <h3 style={{ marginBottom: "15px" }}>Cambiar nombre de usuario</h3>
+        <form onSubmit={handleChangeUsername} className="profile-update-form">
+          <h3 className="profile-update-title">Cambiar nombre de usuario</h3>
 
 
-          <div style={{ marginBottom: "10px" }}>
-            <label
-              htmlFor="newUsername"
-              style={{ display: "block", marginBottom: "5px" }}
-            >
+          <div className="form-group">
+            <label htmlFor="newUsername"className="form-label">
               Nuevo nombre de usuario:
             </label>
             <input
@@ -171,7 +148,7 @@ export default function MyUserProfile() {
               value={newUsername}
               onChange={(e) => setNewUsername(e.target.value)}
               placeholder="Introduce tu nuevo username"
-              style={{ padding: "8px", borderRadius: "5px", border: "1px solid #ccc" }}
+              className="form-input"
               disabled={isUpdating}
             />
           </div>
@@ -180,19 +157,19 @@ export default function MyUserProfile() {
           <button
             type="submit"
             disabled={isUpdating}
-            style={{ padding: "8px 15px", cursor: "pointer" }}
+            className="profile-update-submit-btn"
           >
             {isUpdating ? "Actualizando..." : "Actualizar nombre"}
           </button>
 
 
           {updateError && (
-            <p style={{ color: "red", marginTop: "10px" }}>{updateError}</p>
+            <p className="error-text">{updateError}</p>
           )}
 
 
           {redirectMessage && (
-            <p style={{ color: "green", marginTop: "10px", fontWeight: "bold" }}>
+            <p className="success-text">
               {redirectMessage}
             </p>
           )}

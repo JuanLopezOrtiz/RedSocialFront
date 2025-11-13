@@ -1,6 +1,6 @@
 import { usePagination } from "../hooks/usePagination";
 import GetPublication from "./GetPublication";
-
+import "../styles/PaginatedList.css";
 
 /**
  * Muestra las publicaciones de los usuarios que se siguen.
@@ -18,15 +18,15 @@ export default function PublicationFollowing() {
 
 
   if (isLoading) return <p>Cargando publicaciones...</p>;
-  if (isError) return <p style={{ color: "red" }}>Error: {error.message}</p>;
+  if (isError) return <p className="error-text">Error: {error.message}</p>;
 
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Publicaciones (página {page + 1} de {totalPages})</h2>
+    <div className="paginated-list-container">
+      <h2 className="paginated-list-title">Publicaciones (página {page + 1} de {totalPages})</h2>
 
 
-      {items.length === 0 && <p>No hay publicaciones disponibles.</p>}
+      {items.length === 0 && <p className="paginated-list-empty">No hay publicaciones disponibles.</p>}
 
 
       {items.map((pub) => (
@@ -39,7 +39,7 @@ export default function PublicationFollowing() {
       ))}
 
 
-      <div style={{ marginTop: "20px" }}>
+      <div className="pagination-controls">
         <button onClick={prevPage} disabled={page === 0}>
           ← Anterior
         </button>

@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import Header from "../components/Header";
 import UserProfile from "../components/UserProfile";
 import ProfilePublications from "../components/ProfilePublications";
-
+import "../styles/Page.css";
 
 /**
  * Página que muestra el perfil y las publicaciones de un usuario en particular.
@@ -18,8 +18,8 @@ export default function ProfilePage() {
   return (
     <>
       <Header />
-      <main style={{ padding: 20 }}>
-        <h3>Perfil de {name}</h3>
+      <main className="page-container">
+        <h3 className="page-title">Perfil de {name}</h3>
         <UserProfile />
         <ProfilePublications />
       </main>

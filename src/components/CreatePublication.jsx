@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../context/useAuth";
 import { apiFetch } from "../api/client";
 import { useQueryClient } from "@tanstack/react-query";
-
+import "../styles/CreatePublication.css";
 
 /**
  * Componente para crear una nueva publicación.
@@ -75,47 +75,26 @@ export default function CreatePublication() {
 
 
   return (
-    <div style={{
-      maxWidth: "600px",
-      margin: "20px auto",
-      padding: "15px",
-      backgroundColor: "#f9f9f9",
-      borderRadius: "10px",
-      boxShadow: "0 0 8px rgba(0,0,0,0.1)",
-    }}>
-      <h3>Crea una nueva publicación</h3>
-      <form onSubmit={handleSubmit}>
+    <div className="create-pub-container">
+      <h3 className="create-pub-title">Crea una nueva publicación</h3>
+      <form className="create-pub-form" onSubmit={handleSubmit}>
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="¿Qué estás pensando?"
           rows={4}
-          style={{
-            width: "100%",
-            padding: "10px",
-            borderRadius: "6px",
-            border: "1px solid #ccc",
-            resize: "none",
-          }}
+          className="create-pub-textarea"
           disabled={isSubmitting}
         />
         <button
           type="submit"
           disabled={isSubmitting}
-          style={{
-            marginTop: "10px",
-            padding: "10px 15px",
-            backgroundColor: "#2196f3",
-            color: "white",
-            border: "none",
-            borderRadius: "6px",
-            cursor: "pointer",
-          }}
+          className="create-pub-button"
         >
           {isSubmitting ? "Publicando..." : "Publicar"}
         </button>
       </form>
-      {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+      {error && <p className="create-pub-error">{error}</p>}
     </div>
   );
 }

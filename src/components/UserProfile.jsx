@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { apiFetch } from "../api/client";
-
+import "../styles/UserProfile.css";
 
 
 
@@ -48,28 +48,18 @@ export default function UserProfile() {
 
 
 
-  if (loading) return <p>Cargando perfil...</p>;
-  if (error) return <p style={{ color: "red" }}>Error: {error.message}</p>;
+  if (loading) return <p className="loading-text">Cargando perfil...</p>;
+  if (error) return <p className="error-text">Error: {error.message}</p>;
   if (!profile) return <p>No se encontró el perfil del usuario.</p>;
 
 
 
 
   return (
-    <div
-      style={{
-        maxWidth: "600px",
-        margin: "40px auto",
-        padding: "20px",
-        backgroundColor: "#f9f9f9",
-        borderRadius: "10px",
-        boxShadow: "0 0 8px rgba(0,0,0,0.1)",
-        textAlign: "center",
-      }}
-    >
-      <h2 style={{ marginBottom: "20px" }}>{profile.username}</h2>
-      <p>{profile.email}</p>
-      <p>{profile.description || "Sin descripción disponible"}</p>
+    <div className="profile-container">
+      <h2 className="profile-username">{profile.username}</h2>
+      <p className="profile-email">{profile.email}</p>
+      <p className="profile-description">{profile.description || "Sin descripción disponible"}</p>
     </div>
   );
 }

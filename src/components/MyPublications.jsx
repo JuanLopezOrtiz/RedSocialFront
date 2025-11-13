@@ -1,7 +1,7 @@
 import { useAuth } from "../context/useAuth";
 import { usePagination } from "../hooks/usePagination";
 import GetPublication from "./GetPublication";
-
+import "../styles/PaginatedList.css";
 
 /**
  * Muestra las publicaciones de un usuario en particular.
@@ -26,11 +26,11 @@ export default function MyPublications() {
 
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Publicaciones (página {page + 1} de {totalPages})</h2>
+    <div className="paginated-list-container">
+      <h2 className="paginated-list-title">Publicaciones (página {page + 1} de {totalPages})</h2>
 
 
-      {items.length === 0 && <p>No hay publicaciones disponibles.</p>}
+      {items.length === 0 && <p className="paginated-list-empty">No hay publicaciones disponibles.</p>}
 
 
       {items.map((pub) => (
@@ -44,7 +44,7 @@ export default function MyPublications() {
       ))}
 
 
-      <div style={{ marginTop: "20px" }}>
+      <div className="pagination-controls">
         <button onClick={prevPage} disabled={page === 0}>
           ← Anterior
         </button>
