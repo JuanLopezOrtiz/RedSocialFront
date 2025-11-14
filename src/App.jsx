@@ -1,0 +1,77 @@
+// src/App.jsx
+// Aquí configuramos la navegación general de la app.
+// Dependemos del contexto de autenticación para saber si el usuario tiene token.
+
+
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "./context/useAuth";
+import LoginForm from "./components/LoginForm";
+import RegisterForm from "./components/RegisterForm";
+import HomePage from "./pages/HomePage";
+import AllPublicationsPage from "./pages/AllPublicationsPage";
+import MyProfilePage from "./pages/MyProfilePage";
+import ProfilePage from "./pages/ProfilePage";
+import "./styles/AuthForm.css";
+
+
+
+
+/**
+ * Componente principal de la aplicación.
+ * Utiliza el contexto de autenticación para determinar si el usuario
+ * está logueado o no.
+ * Si el usuario NO está logueado, muestra la ruta "/" (login/registro)
+ * y redirige a la ruta "/" si intenta acceder a otras rutas.
+ * Si el usuario ESTÁ logueado, muestra las rutas privadas y redirige
+ * a la principal si intenta acceder a otras rutas.
+ * @returns {JSX.Element} Componente principal de la aplicación.
+ */
+export default function App() {
+  const { isAuthenticated } = useAuth();
+
+
+
+
+  return (
+    <Router>
+      <Routes>
+        {/* Si NO está logueado, sólo puede ver la ruta "/" (login/registro) */}
+        {!isAuthenticated ? (
+          <>
+            <Route path="/" element={<AuthPage />} />
+            <Route path="/register" element={<RegisterForm/>}/>
+            {/* Cualquier otra ruta redirige a login */}
+            <Route path="*" element={<Navigate to="/" />} />
+           
+          </>
+        ) : (
+          <>
+            {/* Rutas privadas */}
+            <Route path="/" element={<HomePage />} />
+            <Route path="/all" element={<AllPublicationsPage />} />
+            <Route path="/me" element={<MyProfilePage />} />
+            <Route path="/profile/:name" element={<ProfilePage />} />
+            {/* Cualquier otra ruta redirige a la principal */}
+            <Route path="*" element={<Navigate to="/" />} />
+          </>
+        )}
+      </Routes>
+    </Router>
+  );
+}
+
+
+
+
+/**
+ * Página inicial cuando no hay sesión iniciada.
+ * Muestra login y registro.
+ */
+function AuthPage() {
+  return (
+    <main className="auth-container">
+      <h2 className="auth-welcome">Bienvenid@ a 1ªRed</h2>
+      <LoginForm />
+    </main>
+  );
+}
