@@ -60,7 +60,7 @@
 
 .form-group {
   margin-bottom: 15px;
-  text-align: left;
+  text-align: center;
 }
 
 .form-label {
@@ -76,7 +76,8 @@
   border-radius: 5px;
   border: 1px solid #ccc;
   box-sizing: border-box; /* Importante */
-  font-size: 1em;
+  font-size: 0.9em;
+  text-align: center;
 }
 
 .profile-update-submit-btn {

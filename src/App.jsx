@@ -11,6 +11,7 @@ import HomePage from "./pages/HomePage";
 import AllPublicationsPage from "./pages/AllPublicationsPage";
 import MyProfilePage from "./pages/MyProfilePage";
 import ProfilePage from "./pages/ProfilePage";
+import "./styles/AuthForm.css";
 
 
 
@@ -68,8 +69,8 @@ export default function App() {
  */
 function AuthPage() {
   return (
-    <main style={{ maxWidth: 500, margin: "40px auto" }}>
-      <h2>Bienvenida a MiniRed</h2>
+    <main className="auth-container">
+      <h2 className="auth-welcome">Bienvenid@ a 1ªRed</h2>
       <LoginForm />
     </main>
   );

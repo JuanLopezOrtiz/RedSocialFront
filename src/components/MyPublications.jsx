@@ -48,7 +48,7 @@ export default function MyPublications() {
         <button onClick={prevPage} disabled={page === 0}>
           ← Anterior
         </button>
-        <button onClick={nextPage} disabled={page >= totalPages - 1} style={{ marginLeft: "10px" }}>
+        <button onClick={nextPage} disabled={page >= totalPages - 1}>
           Siguiente →
         </button>
       </div>
