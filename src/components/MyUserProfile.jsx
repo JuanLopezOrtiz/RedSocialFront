@@ -112,7 +112,7 @@ export default function MyUserProfile() {
 
 
   if (loading) return <p>Cargando perfil...</p>;
-  if (error) return <p style={{ color: "red" }}>Error: {error.message}</p>;
+  if (error) return <p className="error-text">Error: {error.message}</p>;
   if (!profile) return <p>No se encontró el perfil del usuario.</p>;
 
 
@@ -127,7 +127,7 @@ export default function MyUserProfile() {
 
 
       {/*Botón para mostrar/ocultar formulario */}
-      <button onClick={() => setShowForm(!showForm)}>
+      <button onClick={() => setShowForm(!showForm)} className="profile-toggle-form-btn">
         {showForm ? "Cancelar" : "Cambiar nombre de usuario"}
       </button>
 
