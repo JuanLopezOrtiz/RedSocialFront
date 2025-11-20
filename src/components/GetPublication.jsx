@@ -29,13 +29,11 @@ export default function GetPublication({ id, authorName, text, createDate }) {
       await apiFetch(`/publications/${id}`, { method: "DELETE" });
     },
     
-  /**
-   * Función que se ejecuta cuando la mutación tiene éxito.
-   * Invalida el listado de publicaciones para refrescarlo.
-   */
-    
+/**
+ * Invalida el listado de publicaciones en la cache de React Query
+ * para refrescarlo después de borrar una publicación.
+ */
     onSuccess: () => {
-      // Invalida el listado de publicaciones para refrescarlo
      queryClient.invalidateQueries({
         predicate: (query) => query.queryKey[0]?.includes("/publications"),
       });
@@ -51,7 +49,13 @@ export default function GetPublication({ id, authorName, text, createDate }) {
   });
 
 
-  // Handler para el click
+
+/**
+ * Borra la publicación si el usuario confirma la acción.
+ * Muestra una alerta para confirmar la acción.
+ * Si el usuario confirma, se llama a la mutación deleteMutation.
+ * Si el usuario cancela, no se hace nada.
+ */
   const handleDelete = () => {
     if (window.confirm("¿Seguro que quieres borrar esta publicación?")) {
       deleteMutation.mutate();
@@ -59,12 +63,26 @@ export default function GetPublication({ id, authorName, text, createDate }) {
   };
 
 
+/**
+ * Comprueba si el autor de la publicación es el usuario logueado.
+ * Si lo es, redirige a /me.
+ * Si no lo es, redirige a /profile/:authorName.
+ */
+  const handleAuthorClick = () => {
+    if (user?.username === authorName) {
+      navigate("/me");
+    } else {
+      navigate(`/profile/${authorName}`);
+  }
+};
+
+
   return (
     <div className="publication-container">
       <p className="publication-header">
         <strong
           className="publication-author"
-          onClick={() => navigate(`/profile/${authorName}`)}
+          onClick={handleAuthorClick}
         >
           {authorName}
         </strong><span className="publication-date">
@@ -76,7 +94,6 @@ export default function GetPublication({ id, authorName, text, createDate }) {
       <p className="publication-text">{text}</p>
 
 
-      {/* Solo el autor puede borrar */}
       {user?.username === authorName && (
         <button
           className="publication-delete-btn"
