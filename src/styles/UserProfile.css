@@ -114,3 +114,38 @@
   margin-top: 10px;
   font-weight: bold;
 }
+
+.profile-stats-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  max-width: 300px;
+  margin: 20px auto 0; /* Espacio superior y centrado */
+  padding: 10px 0;
+}
+
+.profile-stat {
+  /* El text-align: center se hereda de .profile-container */
+}
+
+.profile-stat-count {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 600; 
+  color: #222; /* Mismo color que el username */
+}
+
+.profile-stat-label {
+  font-size: 0.9em;
+  color: #555; /* Mismo color que el email */
+}
+
+.profile-stat-clickable {
+  cursor: pointer;
+  border-radius: 8px; /* Opcional: da un feedback visual */
+  transition: background-color 0.2s;
+}
+
+.profile-stat-clickable:hover {
+  background-color: #eee; /* Opcional: da un feedback visual */
+}
