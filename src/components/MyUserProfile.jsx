@@ -43,9 +43,9 @@ export default function MyUserProfile() {
         setLoading(true);
         setError(null);
 
-        const profilePromise = apiFetch(`/users/public/${user.username}`); // Asumo que este es el perfil
-        const followersPromise = apiFetch("/users/followers"); // Autenticado
-        const followingPromise = apiFetch("/users/following"); // Autenticado
+        const profilePromise = apiFetch(`/users/public/${user.username}`);
+        const followersPromise = apiFetch("/users/followers");
+        const followingPromise = apiFetch("/users/following"); 
 
         const [profileData, followersData, followingData] = await Promise.all([
           profilePromise,
@@ -125,8 +125,8 @@ export default function MyUserProfile() {
         {/* -- Seguidores/seguidos -- */}
         <div className="profile-stats-container">
           <div 
-            className="profile-stat profile-stat-clickable" // Nueva clase
-            onClick={() => setListToShow('followers')} // Acción
+            className="profile-stat profile-stat-clickable"
+            onClick={() => setListToShow('followers')}
             role="button"
             tabIndex="0"
           >
@@ -134,8 +134,8 @@ export default function MyUserProfile() {
             <span className="profile-stat-label">Seguidores</span>
           </div>
           <div 
-            className="profile-stat profile-stat-clickable" // Nueva clase
-            onClick={() => setListToShow('following')} // Acción
+            className="profile-stat profile-stat-clickable"
+            onClick={() => setListToShow('following')}
             role="button"
             tabIndex="0"
           >
@@ -143,7 +143,7 @@ export default function MyUserProfile() {
             <span className="profile-stat-label">Siguiendo</span>
           </div>
         </div>
-        {/* -- Fin de Seguidores/seguidos -- */}
+
 
 
         <hr className="profile-divider" />

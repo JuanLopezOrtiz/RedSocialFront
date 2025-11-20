@@ -1,12 +1,10 @@
-// src/components/UserListModal.jsx
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/UserListModal.css";
-import { useAuth } from "../context/useAuth"; // Importas useAuth
+import { useAuth } from "../context/useAuth";
 
 /**
  * Un componente modal reutilizable para mostrar una lista de usuarios.
- * (MODIFICADO) Ahora redirige a /me si el usuario es el logueado.
  * @param {object} props
  * @param {string} props.title - Título del modal (ej: "Seguidores")
  * @param {Array} props.users - Array de objetos de usuario (deben tener .username)
@@ -21,9 +19,7 @@ export default function UserListModal({ title, users, onClose }) {
   };
 
   return (
-    // El fondo oscuro que cubre la pantalla
     <div className="modal-backdrop" onClick={onClose}>
-      {/* El contenedor del modal en sí */}
       <div className="modal-content" onClick={handleModalContentClick}>
         <div className="modal-header">
           <h3 className="modal-title">{title}</h3>
@@ -44,7 +40,6 @@ export default function UserListModal({ title, users, onClose }) {
 
                 return (
                   <li key={user.username} className="user-list-item">
-                    {/* Usa el enlace dinámico */}
                     <Link to={profileLink} onClick={onClose}>
                       {user.username}
                     </Link>
