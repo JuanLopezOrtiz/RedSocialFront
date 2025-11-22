@@ -16,7 +16,6 @@ export default function HomePage() {
       <Header />
       <main className="page-container">
         <h3 className="page-title">Publicaciones de tus seguidos</h3>
-        <CreatePublication />
         <PublicationFollowing />
       </main>
     </>

@@ -64,3 +64,11 @@
   background-color: #e9ecef;
   border-color: #ccc;
 }
+
+/* Estilo para el logo GSAP */
+
+
+.logo-letter {
+  display: inline-block;
+  position: relative;
+}
