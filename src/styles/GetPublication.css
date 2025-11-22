@@ -5,6 +5,8 @@
   margin-bottom: 10px;
   background-color: #fafafa;
   text-align: left;
+  opacity: 0;
+  transform: translateY(50px);
 }
 
 .publication-header {
