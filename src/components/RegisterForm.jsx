@@ -1,25 +1,9 @@
 import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
-// import { registerUser } from "../api/auth"; // Comentado para resolver el error de importación
+import { registerUser } from "../api/auth";
 import { Link, useNavigate } from "react-router-dom";
-// import "../styles/AuthForm.css"; // Comentado para resolver el error de importación
-
-/**
- * Simulación de la función de API para permitir la vista previa.
- * En tu proyecto real, deberías usar la importación original.
- */
-const registerUser = async (values) => {
-  console.log("Mock registerUser called with:", values);
-  // Simula un retardo de red
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  
-  // Descomenta la siguiente línea para probar un error
-  // throw new Error("Este usuario ya existe (simulado)");
-
-  // Simula una respuesta exitosa
-  return { success: true, username: values.username };
-};
+import "../styles/AuthForm.css"; 
 
 
 /**
