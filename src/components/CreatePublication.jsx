@@ -1,8 +1,15 @@
-import { useState } from "react";
+import { useMemo } from "react";
+import { useForm } from "react-hook-form";
 import { useAuth } from "../context/useAuth";
 import { apiFetch } from "../api/client";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import "../styles/CreatePublication.css";
+
+/**
+ * Datos que se envían al crear una publicación.
+ * @typedef {Object} CreatePublicationValues
+ * @property {string} text - Contenido de la publicación.
+ */
 
 /**
  * Componente para crear una nueva publicación.
@@ -13,92 +20,107 @@ import "../styles/CreatePublication.css";
  *
  * @returns {JSX.Element} Formulario para crear una publicación.
  */
-
 export default function CreatePublication() {
   const { user } = useAuth();
-  const [text, setText] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState(null);
-
-
   const queryClient = useQueryClient();
 
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    defaultValues: {
+      text: "",
+    },
+    mode: "onBlur",
+  });
 
-  if (!user) {
-    return <p>Debes estar logueado para crear una publicación.</p>;
-  }
-
-
+  const mutation = useMutation({
 /**
- * Función para manejar el envío del formulario de crear una publicación.
- *
- * Previene el envío del formulario y si el texto no está vacío,
- * crea una publicación con un POST a /publications.
- * Si hay un error, se muestra un mensaje de error.
- * Si no hay error, se borra el texto del formulario y se invalida
- * la cache de la lista de publicaciones.
+ * Función que crea una nueva publicación en la API.
+ * Se utiliza en el hook de mutación `useMutation`.
+ * @param {CreatePublicationValues} values - Valores validados del formulario.
+ * @returns {Promise<any>} - Respuesta de la API (o null si 204).
+ * @throws {Error} Cuando la respuesta no es ok, con el mensaje del backend si es posible.
  */
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-
-    if (!text.trim()) {
-      setError("La publicación no puede estar vacía.");
-      return;
-    }
-
-
-    setIsSubmitting(true);
-    setError(null);
-
-
-    try {
-      await apiFetch("/publications/", {
+    mutationFn: async ({ text }) =>
+      apiFetch("/publications/", {
         method: "POST",
         body: JSON.stringify({ text }),
-      });
-
-
-      setText("");
-
-
-      // Recarga automática de la lista
+      }),
+/**
+ * Función que se llama cuando se crea una publicación con éxito.
+ * Limpia el formulario y invalida la cache de la lista de publicaciones.
+*/
+    onSuccess: () => {
+      reset();
       queryClient.invalidateQueries(["/publications/"]);
+    },
+  });
 
-
-    } catch (err) {
-      setError(err.message || "Error al crear la publicación.");
-    } finally {
-      setIsSubmitting(false);
-    }
+  /**
+   * Envía el texto de la publicación a la API.
+   *
+   * @param {CreatePublicationValues} values - Valores validados del formulario.
+   * @returns {Promise<void>} Promesa que resuelve cuando se completa la creación.
+   */
+  const onSubmit = async (values) => {
+    if (!user) return;
+    await mutation.mutateAsync(values);
   };
 
+  const isDisabled = useMemo(
+    () => !user || isSubmitting || mutation.isPending,
+    [user, isSubmitting, mutation.isPending],
+  );
 
   return (
     <div className="create-pub-container">
       <h3 className="create-pub-title">Crea una nueva publicación</h3>
-      <form className="create-pub-form" onSubmit={handleSubmit}>
+      <form
+        className="create-pub-form"
+        onSubmit={handleSubmit(onSubmit)}
+        noValidate
+      >
         <textarea
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder="¿Qué estás pensando?"
+          placeholder={
+            user
+              ? "¿Qué estás pensando?" 
+              : "Inicia sesión para poder publicar."
+          }
           rows={4}
           className="create-pub-textarea"
-          disabled={isSubmitting}
+          {...register("text", {
+            required: user ? "La publicación no puede estar vacía." : false,
+            minLength: {
+              value: 3,
+              message: "La publicación debe tener al menos 3 caracteres.",
+            },
+            maxLength: {
+              value: 280,
+              message: "La publicación no puede superar los 280 caracteres.",
+            },
+          })}
+          disabled={isDisabled}
         />
+        {errors.text && (
+          <p className="create-pub-error">{errors.text.message}</p>
+        )}
+
         <button
           type="submit"
-          disabled={isSubmitting}
+          disabled={isDisabled}
           className="create-pub-button"
         >
-          {isSubmitting ? "Publicando..." : "Publicar"}
+          {isSubmitting || mutation.isPending ? "Publicando..." : "Publicar"}
         </button>
       </form>
-      {error && <p className="create-pub-error">{error}</p>}
+      {mutation.isError && (
+        <p className="create-pub-error">
+          {mutation.error?.message ?? "Error al crear la publicación."}
+        </p>
+      )}
     </div>
   );
 }
-
-
-
-
