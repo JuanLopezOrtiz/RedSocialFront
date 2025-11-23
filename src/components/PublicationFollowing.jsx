@@ -41,13 +41,13 @@ export default function PublicationFollowing() {
     queryKey: ['publications', 'following'],
     queryFn: fetchPublications,
     initialPageParam: 0,
-/**
- * Función que determina la siguiente página a cargar.
- * Devuelve undefined si ya se han cargado todas las páginas.
- * @param {Object} lastPage - Última respuesta de la API.
- * @param {Array} allPages - Todas las respuestas anteriores.
- * @returns {number|undefined} - Número de la siguiente página o undefined si no hay más.
- */
+  /**
+   * Función que determina la siguiente página a cargar.
+   * Devuelve undefined si ya se han cargado todas las páginas.
+   * @param {Object} lastPage - Última respuesta de la API.
+   * @param {Array} allPages - Todas las respuestas anteriores.
+   * @returns {number|undefined} - Número de la siguiente página o undefined si no hay más.
+   */
     getNextPageParam: (lastPage, allPages) => {
       const totalPages = lastPage.totalPages;
       const nextPage = allPages.length;
