@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../api/auth";
-import { useAuth } from "../context/useAuth";
+import { useAuth } from "../hooks/useAuth";
 import { Link } from "react-router-dom";
 import "../styles/AuthForm.css";
 

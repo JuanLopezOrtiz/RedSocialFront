@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { apiFetch } from "../api/client";
 import "../styles/UserProfile.css";
 import UserListModal from "./UserListModal"; 
-import { useAuth } from "../context/useAuth";
+import { useAuth } from "../hooks/useAuth";
 
 
 

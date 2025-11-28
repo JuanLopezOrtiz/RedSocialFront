@@ -1,4 +1,3 @@
-import CreatePublication from "../components/CreatePublication";
 import Header from "../components/Header";
 import PublicationFollowing from "../components/PublicationFollowing";
 import "../styles/Page.css";
