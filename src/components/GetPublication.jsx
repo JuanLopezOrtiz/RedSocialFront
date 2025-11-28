@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/useAuth";
+import { useAuth } from "../hooks/useAuth";
 import { apiFetch } from "../api/client";
 import "../styles/GetPublication.css";
 
@@ -9,9 +9,20 @@ import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 
 
+
 /**
- * Componente que muestra una publicación y permite borrarla.
- * (MODIFICADO) Ahora usa gsap.to y limpia la animación.
+ * Componente para mostrar una publicación.
+ *
+ * Muestra la publicación con su autor, fecha de creación y texto.
+ * Permite borrar la publicación si el usuario autenticado es el mismo que el autor de la publicación.
+ * Permite redirigir al perfil del autor de la publicación.
+ *
+ * @param {Object} props - Valores de la publicación.
+ * @param {string} props.id - ID de la publicación.
+ * @param {string} props.authorName - Nombre del autor de la publicación.
+ * @param {string} props.text - Texto de la publicación.
+ * @param {string} props.createDate - Fecha de creación de la publicación.
+ * @returns {JSX.Element} Componente que muestra la publicación.
  */
 export default function GetPublication({ id, authorName, text, createDate }) {
   const { user } = useAuth();
@@ -71,7 +82,7 @@ export default function GetPublication({ id, authorName, text, createDate }) {
     }
   };
 
-
+  // Animación
   useEffect(() => {
     const el = pubRef.current;
 

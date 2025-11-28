@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useForm } from "react-hook-form";
-import { useAuth } from "../context/useAuth";
+import { useAuth } from "../hooks/useAuth";
 import { apiFetch } from "../api/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import "../styles/CreatePublication.css";

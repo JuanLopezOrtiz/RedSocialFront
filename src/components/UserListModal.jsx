@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/UserListModal.css";
-import { useAuth } from "../context/useAuth";
+import { useAuth } from "../hooks/useAuth";
 
 /**
  * Un componente modal reutilizable para mostrar una lista de usuarios.

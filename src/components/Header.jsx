@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/useAuth";
+import { useAuth } from "../hooks/useAuth";
 import "../styles/Header.css";
 
 import { useRef, useEffect } from "react"; 
 import { gsap } from "gsap"; 
 
+/**
+ * Componente que representa la barra de navegación de la aplicación.
+ * Muestra el logotipo de la aplicación, enlaces a las páginas principales
+ * y un botón para cerrar sesión.
+ * @returns {JSX.Element} Componente que representa la barra de navegación de la aplicación.
+ */
 export default function Header() {
   const { user, logout } = useAuth();
 
