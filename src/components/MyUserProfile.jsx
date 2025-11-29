@@ -78,10 +78,10 @@ export default function MyUserProfile() {
  * Si se actualiza correctamente, se muestra un mensaje de éxito y se redirige al login después de 2 segundos.
  * @param {Event} e - Evento del formulario.
  */
-  const handleChangeUsername = async (e) => {
+    const handleChangeUsername = async (e) => {
     e.preventDefault();
     if (!newUsername.trim()) {
-      setUpdateError("El nombre de usuario no puede estar vacío.");
+      setUpdateError("El nombre de usuario no puede estar vacio.");
       return;
     }
     if (newUsername === user.username) {
@@ -95,17 +95,30 @@ export default function MyUserProfile() {
         method: "PATCH",
         body: JSON.stringify({ username: newUsername }),
       });
-      setRedirectMessage("Nombre de usuario actualizado. Serás redirigido al login...");
+      setRedirectMessage(
+        "Nombre de usuario actualizado. Seras redirigido al login..."
+      );
       setTimeout(() => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         window.location.replace("/login");
       }, 2000);
     } catch (err) {
-      setUpdateError(err.message || "Error al actualizar el nombre de usuario.");
+      const rawMsg = typeof err?.message === "string" ? err.message : "";
+      const normalized = rawMsg
+        ? rawMsg.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+        : "";
+      const msg =
+        normalized.includes("datos invalidos")
+          ? "Ese nombre de usuario ya esta en uso. Prueba con otro distinto."
+          : rawMsg;
+      setUpdateError(
+        msg || "Error al actualizar el nombre de usuario."
+      );
       setIsUpdating(false);
     }
   };
+
 
 
   if (loading) return <p>Cargando perfil...</p>;
