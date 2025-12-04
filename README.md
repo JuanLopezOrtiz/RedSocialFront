@@ -70,7 +70,7 @@ Instalación y ejecución local:
 
 ```powershell
 # clona el repositorio
-git clone <url-del-repo>
+git clone https://github.com/JuanLopezOrtiz/RedSocialFront
 cd RedSocialFront
 
 # instala dependencias
